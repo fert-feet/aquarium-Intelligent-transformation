@@ -30,5 +30,5 @@ public interface ISysStaffService extends IService<SysStaff> {
      * @param name
      * @return
      */
-    ResponseVo listPerson(long page, long limit, String name);
+    ResponseVo listStaff(long page, long limit, String name);
 }

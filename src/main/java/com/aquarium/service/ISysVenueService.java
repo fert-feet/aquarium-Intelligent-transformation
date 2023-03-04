@@ -1,6 +1,7 @@
 package com.aquarium.service;
 
 import com.aquarium.pojo.SysVenue;
+import com.aquarium.response.ResponseVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +14,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysVenueService extends IService<SysVenue> {
 
+    /**
+     * 分页查询场馆
+     *
+     * @param page
+     * @param limit
+     * @param name
+     * @return
+     */
+    ResponseVo listVenue(long page, long limit, String name);
 }

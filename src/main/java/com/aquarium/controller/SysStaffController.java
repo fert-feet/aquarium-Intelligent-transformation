@@ -63,7 +63,7 @@ public class SysStaffController {
             long limit,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String sort) {
-        return staffService.listPerson(page, limit, name);
+        return staffService.listStaff(page, limit, name);
     }
 
     /**

@@ -52,13 +52,13 @@ public class SysStaffServiceImpl extends ServiceImpl<SysStaffMapper, SysStaff> i
     }
 
     @Override
-    public ResponseVo listPerson(long page, long limit, String name) {
+    public ResponseVo listStaff(long page, long limit, String name) {
         // 分页
-        Page<SysStaff> labPage = new Page<>();
+        Page<SysStaff> staffPage = new Page<>();
         // 当前页面
-        labPage.setCurrent(page);
+        staffPage.setCurrent(page);
         //页面大小
-        labPage.setSize(limit);
+        staffPage.setSize(limit);
         LambdaQueryWrapper<SysStaff> wrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(name)) {
             // 根据人员姓名查询
@@ -66,7 +66,7 @@ public class SysStaffServiceImpl extends ServiceImpl<SysStaffMapper, SysStaff> i
         }
         // 顺序排列
         wrapper.orderByAsc(SysStaff::getStaffId);
-        Page<SysStaff> selectPage = staffMapper.selectPage(labPage, wrapper);
+        Page<SysStaff> selectPage = staffMapper.selectPage(staffPage, wrapper);
         return ResponseVo.success().data("items", selectPage.getRecords()).data("total", selectPage.getTotal());
     }
 }
