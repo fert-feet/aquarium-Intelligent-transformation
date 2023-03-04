@@ -19,11 +19,22 @@ public class SysAdministratorController {
         return ResponseVo.success();
     }
 
+    /**
+     * 登录
+     *
+     * @param admin
+     * @return
+     */
     @PostMapping("/login")
     public ResponseVo login(@RequestBody SysAdministrator admin) {
         return administratorService.login(admin);
     }
 
+    /**
+     * 登出
+     *
+     * @return
+     */
     @PostMapping("/logout")
     public ResponseVo logout() {
         return ResponseVo.success();

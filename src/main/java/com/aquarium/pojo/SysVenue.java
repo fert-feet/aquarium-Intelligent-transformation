@@ -1,5 +1,7 @@
 package com.aquarium.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +26,7 @@ public class SysVenue implements Serializable {
     /**
      * 场馆id
      */
+    @TableId(value = "venue_id", type = IdType.AUTO)
     private Integer venueId;
 
     /**

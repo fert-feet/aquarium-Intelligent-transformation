@@ -1,5 +1,7 @@
 package com.aquarium.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +26,8 @@ public class SysDevice implements Serializable {
     /**
      * 设备主键
      */
-    private Integer dviceId;
+    @TableId(value = "device_id", type = IdType.AUTO)
+    private Integer deviceId;
 
     /**
      * 设备名称

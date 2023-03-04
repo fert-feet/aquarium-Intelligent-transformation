@@ -1,5 +1,7 @@
 package com.aquarium.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +26,7 @@ public class SysAdministrator implements Serializable {
     /**
      * 管理员登录id
      */
+    @TableId(value = "admin_id", type = IdType.AUTO)
     private Integer adminId;
 
     /**

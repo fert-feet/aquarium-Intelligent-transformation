@@ -1,5 +1,7 @@
 package com.aquarium.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +26,7 @@ public class SysStaff implements Serializable {
     /**
      * 工作人员id
      */
+    @TableId(value = "staff_id", type = IdType.AUTO)
     private Integer staffId;
 
     /**
@@ -45,4 +48,8 @@ public class SysStaff implements Serializable {
      * 管理的场馆id
      */
     private Integer venueId;
+    /**
+     * 人员身份证号码
+     */
+    private String idNum;
 }
