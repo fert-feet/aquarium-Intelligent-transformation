@@ -23,4 +23,9 @@ public class SysAdministratorController {
     public ResponseVo login(@RequestBody SysAdministrator admin) {
         return administratorService.login(admin);
     }
+
+    @PostMapping("/logout")
+    public ResponseVo logout() {
+        return ResponseVo.success();
+    }
 }
