@@ -34,4 +34,12 @@ public class SysStaffController {
     public ResponseVo addOrUpdateStaff(@RequestBody SysStaff sysStaff) {
         return staffService.createOrUpdate(sysStaff);
     }
+
+    @PostMapping("/delete")
+    public ResponseVo deleteStaff(int staffId) {
+        if (staffService.removeById(staffId)) {
+            return ResponseVo.success();
+        }
+        return ResponseVo.exp();
+    }
 }
