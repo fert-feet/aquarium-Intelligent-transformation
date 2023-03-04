@@ -21,4 +21,14 @@ public interface ISysStaffService extends IService<SysStaff> {
      * @return
      */
     ResponseVo createOrUpdate(SysStaff sysStaff);
+
+    /**
+     * 分页查询人员
+     *
+     * @param page
+     * @param limit
+     * @param name
+     * @return
+     */
+    ResponseVo listPerson(long page, long limit, String name);
 }
