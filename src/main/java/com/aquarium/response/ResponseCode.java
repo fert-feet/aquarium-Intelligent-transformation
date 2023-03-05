@@ -11,7 +11,7 @@ public enum ResponseCode implements ResCode {
     //统一成功
     SUCCESS(200, "成功"),
 
-    FAIL(1001, "后台错误"),
+    FAIL(1001, "操作失败"),
 
     VALID_DATA(1002, "参数校验错误"),
 

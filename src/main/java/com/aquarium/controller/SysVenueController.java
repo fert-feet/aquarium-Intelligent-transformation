@@ -8,14 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * <p>
- * 前端控制器
- * </p>
- *
- * @author tt-Tang
- * @since 2023-03-04
- */
+
 @RestController
 @RequestMapping("/venue")
 public class SysVenueController {
@@ -53,8 +46,11 @@ public class SysVenueController {
     }
 
     @PostMapping("/delete")
-    public ResponseVo delete() {
-        return ResponseVo.success();
+    public ResponseVo delete(int venueId) {
+        if (venueService.removeById(venueId)) {
+            return ResponseVo.success();
+        }
+        return ResponseVo.exp();
     }
 
 }
