@@ -1,6 +1,11 @@
 package com.aquarium.controller;
 
+import com.aquarium.response.ResponseVo;
+import com.aquarium.service.ISysWaterQualityService;
+import jakarta.annotation.Resource;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -12,7 +17,28 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-03-04
  */
 @RestController
-@RequestMapping("/sysWaterQuality")
+@RequestMapping("/waterData")
 public class SysWaterQualityController {
+    @Resource
+    private ISysWaterQualityService waterQualityService;
 
+    /**
+     * 根据场馆 ID 分页查询水质信息
+     *
+     * @param page
+     * @param limit
+     * @param name
+     * @param sort
+     * @return
+     */
+    @GetMapping("/list")
+    public ResponseVo list(
+            int venueId,
+            long page,
+            long limit,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) String date) {
+        return waterQualityService.listWaterData(page, limit, name, venueId, date);
+    }
 }

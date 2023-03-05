@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * <p>
@@ -38,7 +38,7 @@ public class SysWaterQuality implements Serializable {
     /**
      * 水质记录日期
      */
-    private LocalDateTime dataDate;
+    private LocalDate dataDate;
 
     /**
      * 水质状况归属的实验室

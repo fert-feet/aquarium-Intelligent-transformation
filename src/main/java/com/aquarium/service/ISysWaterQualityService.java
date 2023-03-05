@@ -1,6 +1,7 @@
 package com.aquarium.service;
 
 import com.aquarium.pojo.SysWaterQuality;
+import com.aquarium.response.ResponseVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +14,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysWaterQualityService extends IService<SysWaterQuality> {
 
+    /**
+     * 根据场馆 ID 查询水质信息
+     *
+     * @param page
+     * @param limit
+     * @param name
+     * @param venueId
+     * @param date
+     * @return
+     */
+    ResponseVo listWaterData(long page, long limit, String name, int venueId, String date);
 }
