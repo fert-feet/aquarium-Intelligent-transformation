@@ -23,4 +23,12 @@ public interface ISysDeviceService extends IService<SysDevice> {
      * @return
      */
     ResponseVo listDevice(long page, long limit, String name);
+
+    /**
+     * 更新或新增设备
+     *
+     * @param device
+     * @return
+     */
+    ResponseVo addOrUpdate(SysDevice device);
 }

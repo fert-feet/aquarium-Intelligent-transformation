@@ -1,7 +1,9 @@
 package com.aquarium.service.impl;
 
 import com.aquarium.mapper.SysDeviceMapper;
+import com.aquarium.mapper.SysVenueMapper;
 import com.aquarium.pojo.SysDevice;
+import com.aquarium.pojo.SysVenue;
 import com.aquarium.response.ResponseVo;
 import com.aquarium.service.ISysDeviceService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -26,6 +28,9 @@ public class SysDeviceServiceImpl extends ServiceImpl<SysDeviceMapper, SysDevice
     @Resource
     private SysDeviceMapper deviceMapper;
 
+    @Resource
+    private SysVenueMapper venueMapper;
+
     @Override
     public ResponseVo listDevice(long page, long limit, String name) {
         // 分页
@@ -43,5 +48,29 @@ public class SysDeviceServiceImpl extends ServiceImpl<SysDeviceMapper, SysDevice
         wrapper.orderByAsc(SysDevice::getVenueId);
         Page<SysDevice> selectPage = deviceMapper.selectPage(devicePage, wrapper);
         return ResponseVo.success().data("items", selectPage.getRecords()).data("total", selectPage.getTotal());
+    }
+
+    @Override
+    public ResponseVo addOrUpdate(SysDevice device) {
+        // 新增操作
+        if (device.getDeviceId() == null) {
+            deviceMapper.insert(device);
+            return ResponseVo.success();
+        }
+        // 设置绑定实验室操作
+        if (device.getVenueId() != null) {
+            SysVenue venue = new SysVenue();
+            venue.setVenueId(device.getVenueId());
+            venue.setDeviceId(device.getDeviceId());
+            // 同步设置实验室中设备ID
+            if (venueMapper.updateById(venue) == 0) {
+                return ResponseVo.exp();
+            }
+        }
+        // 更新设备信息
+        if (deviceMapper.updateById(device) > 0) {
+            return ResponseVo.success();
+        }
+        return ResponseVo.exp();
     }
 }

@@ -4,10 +4,7 @@ import com.aquarium.pojo.SysDevice;
 import com.aquarium.response.ResponseVo;
 import com.aquarium.service.ISysDeviceService;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,5 +50,16 @@ public class SysDeviceController {
     public ResponseVo originList() {
         List<SysDevice> list = deviceService.list();
         return ResponseVo.success().data("items", list).data("total", list.size());
+    }
+
+    /**
+     * 新增或更新设备
+     *
+     * @param device
+     * @return
+     */
+    @PostMapping("/addOrUpdate")
+    public ResponseVo addOrUpdate(@RequestBody SysDevice device) {
+        return deviceService.addOrUpdate(device);
     }
 }
