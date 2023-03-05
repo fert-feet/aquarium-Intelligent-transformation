@@ -35,14 +35,19 @@ public class SysVenue implements Serializable {
     private String name;
 
     /**
-     * 是否已经有设备
+     * 场馆对应设备Id
      */
-    private Byte isHasDevice;
+    private Integer deviceId;
 
     /**
-     * 场馆水质阈值
+     * 场馆水质最大阈值
      */
-    private Integer waterThreshold;
+    private Integer maxWaterThreshold;
+
+    /**
+     * 场馆水质最小阈值
+     */
+    private Integer miniWaterThreshold;
 
     /**
      * 管理人员id

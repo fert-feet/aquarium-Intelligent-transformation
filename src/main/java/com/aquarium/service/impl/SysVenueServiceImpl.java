@@ -1,6 +1,8 @@
 package com.aquarium.service.impl;
 
+import com.aquarium.mapper.SysStaffMapper;
 import com.aquarium.mapper.SysVenueMapper;
+import com.aquarium.pojo.SysStaff;
 import com.aquarium.pojo.SysVenue;
 import com.aquarium.response.ResponseVo;
 import com.aquarium.service.ISysVenueService;
@@ -10,6 +12,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,10 +24,14 @@ import org.springframework.stereotype.Service;
  * @since 2023-03-04
  */
 @Service
+@Slf4j
 public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> implements ISysVenueService {
 
     @Resource
     private SysVenueMapper venueMapper;
+
+    @Resource
+    private SysStaffMapper staffMapper;
 
     @Override
     public ResponseVo listVenue(long page, long limit, String name) {
@@ -43,5 +50,29 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
         wrapper.orderByAsc(SysVenue::getVenueId);
         Page<SysVenue> selectPage = venueMapper.selectPage(venuePage, wrapper);
         return ResponseVo.success().data("items", selectPage.getRecords()).data("total", selectPage.getTotal());
+    }
+
+    @Override
+    public ResponseVo addOrUpdate(SysVenue venue) {
+        // 设置管理员操作
+        if (venue.getStaffId() != null) {
+            SysStaff staff = new SysStaff();
+            staff.setStaffId(venue.getStaffId());
+            staff.setVenueId(venue.getVenueId());
+            // 同步更新人员对应场馆
+            if (staffMapper.updateById(staff) == 0) {
+                return ResponseVo.exp();
+            }
+        }
+        // 直接新增操作
+        if (venue.getVenueId() == null) {
+            venueMapper.insert(venue);
+            return ResponseVo.success();
+        }
+        // 更新场馆信息
+        if (venueMapper.updateById(venue) > 0) {
+            return ResponseVo.success();
+        }
+        return ResponseVo.exp();
     }
 }

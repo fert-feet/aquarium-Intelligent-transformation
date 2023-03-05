@@ -45,12 +45,30 @@ public class SysVenueController {
         return ResponseVo.success().data("items", list).data("total", list.size());
     }
 
+    /**
+     * 场馆删除
+     *
+     * @param venueId
+     * @return
+     */
     @PostMapping("/delete")
     public ResponseVo delete(int venueId) {
         if (venueService.removeById(venueId)) {
             return ResponseVo.success();
         }
         return ResponseVo.exp();
+    }
+
+
+    /**
+     * 新增或更新场馆信息
+     *
+     * @param venue
+     * @return
+     */
+    @PostMapping("/addOrUpdate")
+    public ResponseVo addOrUpdate(@RequestBody SysVenue venue) {
+        return venueService.addOrUpdate(venue);
     }
 
 }
