@@ -1,6 +1,7 @@
 package com.aquarium.service;
 
 import com.aquarium.pojo.SysDevice;
+import com.aquarium.response.ResponseVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +14,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysDeviceService extends IService<SysDevice> {
 
+    /**
+     * 设备分页查询
+     *
+     * @param page
+     * @param limit
+     * @param name
+     * @return
+     */
+    ResponseVo listDevice(long page, long limit, String name);
 }
