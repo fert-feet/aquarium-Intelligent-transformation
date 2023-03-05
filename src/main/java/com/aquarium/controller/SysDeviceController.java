@@ -62,4 +62,17 @@ public class SysDeviceController {
     public ResponseVo addOrUpdate(@RequestBody SysDevice device) {
         return deviceService.addOrUpdate(device);
     }
+
+    /**
+     * 删除
+     *
+     * @return
+     */
+    @PostMapping("/delete")
+    public ResponseVo delete(int deviceId) {
+        if (deviceService.removeById(deviceId)) {
+            return ResponseVo.success();
+        }
+        return ResponseVo.exp();
+    }
 }
