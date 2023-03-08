@@ -39,4 +39,14 @@ public class SysAdministratorController {
     public ResponseVo logout() {
         return ResponseVo.success();
     }
+
+    /**
+     * 获取管理员信息
+     *
+     * @return
+     */
+    @PostMapping("/info")
+    public ResponseVo userInfo() {
+        return ResponseVo.success();
+    }
 }
