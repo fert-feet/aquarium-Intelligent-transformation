@@ -33,16 +33,21 @@ public class SysStaffServiceImpl extends ServiceImpl<SysStaffMapper, SysStaff> i
 
     @Override
     public ResponseVo createOrUpdate(SysStaff sysStaff) {
+        // 若更改归属实验室，级联更新实验室管理人员
+        if (sysStaff.getVenueId() != null) {
+            SysVenue venue = new SysVenue();
+            // 设置场馆管理人员id和姓名
+            venue.setVenueId(sysStaff.getVenueId());
+            venue.setStaffId(sysStaff.getStaffId());
+            venue.setStaffName(sysStaff.getName());
+            if (venueMapper.updateById(venue) == 0) {
+                return ResponseVo.exp();
+            }
+        }
         // 直接插入
         if (sysStaff.getStaffId() == null) {
             staffMapper.insert(sysStaff);
             return ResponseVo.success();
-        }
-        // 若更改归属实验室，级联更新实验室管理人员
-        if (sysStaff.getVenueId() != null) {
-            SysVenue sysVenue = venueMapper.selectById(sysStaff.getVenueId());
-            sysVenue.setStaffId(sysStaff.getStaffId());
-            venueMapper.updateById(sysVenue);
         }
         // 最后都要更新人员信息
         if (staffMapper.updateById(sysStaff) > 0) {
