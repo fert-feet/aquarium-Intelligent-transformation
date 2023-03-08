@@ -53,4 +53,9 @@ public class SysVenue implements Serializable {
      * 管理人员id
      */
     private Integer staffId;
+
+    /**
+     * 管理人员名称
+     */
+    private String staffName;
 }

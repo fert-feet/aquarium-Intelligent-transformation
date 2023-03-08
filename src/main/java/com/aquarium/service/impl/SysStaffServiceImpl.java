@@ -67,6 +67,9 @@ public class SysStaffServiceImpl extends ServiceImpl<SysStaffMapper, SysStaff> i
         // 顺序排列
         wrapper.orderByAsc(SysStaff::getStaffId);
         Page<SysStaff> selectPage = staffMapper.selectPage(staffPage, wrapper);
-        return ResponseVo.success().data("items", selectPage.getRecords()).data("total", selectPage.getTotal());
+        return ResponseVo.success()
+                .data("items", selectPage.getRecords())
+                .data("totalCount", selectPage.getTotal())
+                .data("pageNo", page);
     }
 }

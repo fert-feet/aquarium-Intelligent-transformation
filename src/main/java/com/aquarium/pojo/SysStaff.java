@@ -48,6 +48,12 @@ public class SysStaff implements Serializable {
      * 管理的场馆id
      */
     private Integer venueId;
+
+    /**
+     * 管理的场馆名称
+     */
+    private String venueName;
+
     /**
      * 人员身份证号码
      */
