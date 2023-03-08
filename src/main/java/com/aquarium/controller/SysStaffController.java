@@ -59,8 +59,8 @@ public class SysStaffController {
      */
     @GetMapping("/list")
     public ResponseVo list(
-            long page,
-            long limit,
+            @RequestParam(name = "pageNo") long page,
+            @RequestParam(name = "pageSize") long limit,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String sort) {
         return staffService.listStaff(page, limit, name);
