@@ -32,7 +32,7 @@ public class SysAdministrator implements Serializable {
     /**
      * 管理员账号
      */
-    private String adminName;
+    private String username;
 
     /**
      * 管理员密码

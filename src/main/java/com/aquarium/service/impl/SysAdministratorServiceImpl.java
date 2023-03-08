@@ -22,7 +22,7 @@ public class SysAdministratorServiceImpl extends ServiceImpl<SysAdministratorMap
     public ResponseVo login(SysAdministrator admin) {
         LambdaQueryWrapper<SysAdministrator> wrapper = Wrappers.lambdaQuery();
         // 根据账号密码查询是否存在这一条数据，存在则为登录成功
-        wrapper.eq(SysAdministrator::getAdminName, admin.getAdminName()).eq(SysAdministrator::getPassword, admin.getPassword());
+        wrapper.eq(SysAdministrator::getUsername, admin.getUsername()).eq(SysAdministrator::getPassword, admin.getPassword());
         SysAdministrator loginAdmin = administratorMapper.selectOne(wrapper);
         // 账号密码同时符合就为登录成功，否则直接返回错误，不提示是账号或密码错误
         if (loginAdmin != null) {
