@@ -57,7 +57,9 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
         // 设置管理员操作
         if (venue.getStaffId() != null) {
             SysStaff staff = new SysStaff();
+            // 设置人员管理的实验室id和名称
             staff.setStaffId(venue.getStaffId());
+            staff.setVenueName(venue.getName());
             staff.setVenueId(venue.getVenueId());
             // 同步更新人员对应场馆
             if (staffMapper.updateById(staff) == 0) {
