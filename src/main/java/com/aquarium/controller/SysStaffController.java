@@ -24,14 +24,25 @@ public class SysStaffController {
     private ISysStaffService staffService;
 
     /**
-     * 更新或新增人员
+     * 新增人员
      *
      * @param sysStaff
      * @return
      */
-    @PostMapping("/addOrUpdateStaff")
-    public ResponseVo addOrUpdateStaff(@RequestBody SysStaff sysStaff) {
-        return staffService.createOrUpdate(sysStaff);
+    @PostMapping("/add")
+    public ResponseVo add(@RequestBody SysStaff sysStaff) {
+        return staffService.add(sysStaff);
+    }
+
+    /**
+     * 更新人员
+     *
+     * @param sysStaff
+     * @return
+     */
+    @PostMapping("/update")
+    public ResponseVo update(@RequestBody SysStaff sysStaff) {
+        return staffService.update(sysStaff);
     }
 
     /**

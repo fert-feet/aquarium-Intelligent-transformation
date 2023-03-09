@@ -31,4 +31,20 @@ public interface ISysVenueService extends IService<SysVenue> {
      * @return
      */
     ResponseVo addOrUpdate(SysVenue venue);
+
+    /**
+     * 新增场馆
+     *
+     * @param venue
+     * @return
+     */
+    ResponseVo add(SysVenue venue);
+
+    /**
+     * 更新场馆信息
+     *
+     * @param venue
+     * @return
+     */
+    ResponseVo updateVenue(SysVenue venue);
 }

@@ -61,14 +61,25 @@ public class SysVenueController {
 
 
     /**
-     * 新增或更新场馆信息
+     * 新增场馆
      *
      * @param venue
      * @return
      */
-    @PostMapping("/addOrUpdate")
-    public ResponseVo addOrUpdate(@RequestBody SysVenue venue) {
-        return venueService.addOrUpdate(venue);
+    @PostMapping("/add")
+    public ResponseVo add(@RequestBody SysVenue venue) {
+        return venueService.add(venue);
+    }
+
+    /**
+     * 更新场馆信息
+     *
+     * @param venue
+     * @return
+     */
+    @PostMapping("/update")
+    public ResponseVo update(@RequestBody SysVenue venue) {
+        return venueService.updateVenue(venue);
     }
 
 }
