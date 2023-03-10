@@ -22,4 +22,12 @@ public interface SysStaffMapper extends BaseMapper<SysStaff> {
      * @return
      */
     Set<Integer> findManagedVenue(int staffId);
+
+    /**
+     * 查找管理的实验室关系id
+     *
+     * @param staffId
+     * @return
+     */
+    Set<Integer> findManagedVenueInterIds(int staffId);
 }

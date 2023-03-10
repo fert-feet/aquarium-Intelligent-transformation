@@ -1,5 +1,6 @@
 package com.aquarium.controller;
 
+import com.aquarium.dto.UpdateManagedVenueDTO;
 import com.aquarium.pojo.SysStaff;
 import com.aquarium.response.ResponseVo;
 import com.aquarium.service.ISysStaffService;
@@ -89,5 +90,16 @@ public class SysStaffController {
     public ResponseVo originList() {
         List<SysStaff> list = staffService.list();
         return ResponseVo.success().data("items", list).data("total", list.size());
+    }
+
+    /**
+     * 更新管理的场馆
+     *
+     * @param newVenueDTO
+     * @return
+     */
+    @PostMapping("/updateManagedVenue")
+    public ResponseVo updateManagedVenue(@RequestBody UpdateManagedVenueDTO newVenueDTO) {
+        return staffService.updateManagedVenue(newVenueDTO);
     }
 }

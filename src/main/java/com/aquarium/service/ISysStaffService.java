@@ -1,5 +1,6 @@
 package com.aquarium.service;
 
+import com.aquarium.dto.UpdateManagedVenueDTO;
 import com.aquarium.pojo.SysStaff;
 import com.aquarium.response.ResponseVo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -32,4 +33,12 @@ public interface ISysStaffService extends IService<SysStaff> {
      * @return
      */
     ResponseVo findManagedVenue(int staffId);
+
+    /**
+     * 更新管理的场馆
+     *
+     * @param newVenueDTO
+     * @return
+     */
+    ResponseVo updateManagedVenue(UpdateManagedVenueDTO newVenueDTO);
 }
