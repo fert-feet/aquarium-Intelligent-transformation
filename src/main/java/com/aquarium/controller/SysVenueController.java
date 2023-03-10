@@ -68,7 +68,7 @@ public class SysVenueController {
      */
     @PostMapping("/add")
     public ResponseVo add(@RequestBody SysVenue venue) {
-        return venueService.add(venue);
+        return ResponseVo.exp();
     }
 
     /**
@@ -79,7 +79,7 @@ public class SysVenueController {
      */
     @PostMapping("/update")
     public ResponseVo update(@RequestBody SysVenue venue) {
-        return venueService.updateVenue(venue);
+        return ResponseVo.exp();
     }
 
 }

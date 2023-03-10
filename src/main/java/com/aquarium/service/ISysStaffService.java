@@ -15,14 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ISysStaffService extends IService<SysStaff> {
 
     /**
-     * 新增或更新人员
-     *
-     * @param sysStaff
-     * @return
-     */
-    ResponseVo createOrUpdate(SysStaff sysStaff);
-
-    /**
      * 分页查询人员
      *
      * @param page
@@ -32,19 +24,5 @@ public interface ISysStaffService extends IService<SysStaff> {
      */
     ResponseVo listStaff(long page, long limit, String name);
 
-    /**
-     * 新增人员
-     *
-     * @param sysStaff
-     * @return
-     */
-    ResponseVo add(SysStaff sysStaff);
 
-    /**
-     * 更新人员
-     *
-     * @param sysStaff
-     * @return
-     */
-    ResponseVo update(SysStaff sysStaff);
 }

@@ -50,12 +50,7 @@ public class SysVenue implements Serializable {
     private Integer miniWaterThreshold;
 
     /**
-     * 管理人员id
+     * 是否有管理人员
      */
-    private Integer staffId;
-
-    /**
-     * 管理人员名称
-     */
-    private String staffName;
+    private Byte hasAdmin;
 }
