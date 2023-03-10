@@ -3,6 +3,8 @@ package com.aquarium.mapper;
 import com.aquarium.pojo.SysStaff;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.Set;
+
 /**
  * <p>
  * Mapper 接口
@@ -13,4 +15,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysStaffMapper extends BaseMapper<SysStaff> {
 
+    /**
+     * 查找管理的实验室
+     *
+     * @param staffId
+     * @return
+     */
+    Set<Integer> findManagedVenue(int staffId);
 }

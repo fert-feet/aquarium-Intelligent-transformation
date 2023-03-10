@@ -52,6 +52,17 @@ public class SysStaffController {
     }
 
     /**
+     * 查找人员管理的实验室
+     *
+     * @param staffId
+     * @return
+     */
+    @PostMapping("/managedVenue")
+    public ResponseVo findManagedVenue(int staffId) {
+        return staffService.findManagedVenue(staffId);
+    }
+
+    /**
      * 人员分页查询
      *
      * @param page

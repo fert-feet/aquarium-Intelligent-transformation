@@ -14,6 +14,8 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 /**
  * <p>
  * 服务实现类
@@ -52,6 +54,12 @@ public class SysStaffServiceImpl extends ServiceImpl<SysStaffMapper, SysStaff> i
                 .data("items", selectPage.getRecords())
                 .data("totalCount", selectPage.getTotal())
                 .data("pageNo", page);
+    }
+
+    @Override
+    public ResponseVo findManagedVenue(int staffId) {
+        Set<Integer> managedVenueIds = staffMapper.findManagedVenue(staffId);
+        return ResponseVo.success().data("items", managedVenueIds).data("total", managedVenueIds.size());
     }
 
 }

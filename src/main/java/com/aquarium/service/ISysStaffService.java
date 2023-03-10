@@ -25,4 +25,11 @@ public interface ISysStaffService extends IService<SysStaff> {
     ResponseVo listStaff(long page, long limit, String name);
 
 
+    /**
+     * 查找人员管理的实验室
+     *
+     * @param staffId
+     * @return
+     */
+    ResponseVo findManagedVenue(int staffId);
 }
