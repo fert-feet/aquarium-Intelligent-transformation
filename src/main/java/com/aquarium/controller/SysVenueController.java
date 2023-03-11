@@ -82,4 +82,15 @@ public class SysVenueController {
         return ResponseVo.exp();
     }
 
+    /**
+     * 查找实验室的管理员
+     *
+     * @param venueId
+     * @return
+     */
+    @GetMapping("/administrator")
+    public ResponseVo findAdministrator(int venueId) {
+        return venueService.findAdministrator(venueId);
+    }
+
 }

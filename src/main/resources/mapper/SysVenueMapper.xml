@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aquarium.mapper.SysVenueMapper">
 
+    <select id="findAdministrator" resultType="java.lang.Integer">
+        SELECT staff_id
+        FROM sys_staff_venue
+        WHERE venue_id = #{venueId}
+    </select>
+    <select id="findManagedVenueInterIds" resultType="java.lang.Integer">
+        SELECT id
+        FROM sys_staff_venue
+        WHERE venue_id = #{venueId}
+    </select>
 </mapper>

@@ -14,6 +14,8 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 /**
  * <p>
  * 服务实现类
@@ -49,6 +51,12 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
         wrapper.orderByAsc(SysVenue::getVenueId);
         Page<SysVenue> selectPage = venueMapper.selectPage(venuePage, wrapper);
         return ResponseVo.success().data("items", selectPage.getRecords()).data("total", selectPage.getTotal());
+    }
+
+    @Override
+    public ResponseVo findAdministrator(int venueId) {
+        Set<Integer> administratorIds = venueMapper.findAdministrator(venueId);
+        return ResponseVo.success().data("items", administratorIds).data("total", administratorIds.size());
     }
 
 }
