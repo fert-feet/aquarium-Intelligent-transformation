@@ -42,7 +42,7 @@ public class SysStaffServiceImpl extends ServiceImpl<SysStaffMapper, SysStaff> i
     private SysStaffVenueMapper staffVenueMapper;
 
     @Override
-    public ResponseVo listStaff(long page, long limit, String name) {
+    public ResponseVo listStaff(long page, long limit, String name, byte hasVenue) {
         // 分页
         Page<SysStaff> staffPage = new Page<>();
         // 当前页面
@@ -51,8 +51,12 @@ public class SysStaffServiceImpl extends ServiceImpl<SysStaffMapper, SysStaff> i
         staffPage.setSize(limit);
         LambdaQueryWrapper<SysStaff> wrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(name)) {
-            // 根据人员姓名查询
+            // 根据人员姓名过滤
             wrapper.like(SysStaff::getName, name);
+        }
+        if (hasVenue == 1 || hasVenue == 0) {
+            // 根据是否已有管理的实验室过滤
+            wrapper.eq(SysStaff::getHasVenue, hasVenue);
         }
         // 顺序排列
         wrapper.orderByAsc(SysStaff::getStaffId);

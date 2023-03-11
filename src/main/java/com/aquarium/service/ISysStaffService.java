@@ -21,9 +21,10 @@ public interface ISysStaffService extends IService<SysStaff> {
      * @param page
      * @param limit
      * @param name
+     * @param hasVenue
      * @return
      */
-    ResponseVo listStaff(long page, long limit, String name);
+    ResponseVo listStaff(long page, long limit, String name, byte hasVenue);
 
 
     /**

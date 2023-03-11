@@ -70,6 +70,7 @@ public class SysStaffController {
      * @param limit
      * @param name
      * @param sort
+     * @param hasVenue
      * @return
      */
     @GetMapping("/list")
@@ -77,8 +78,9 @@ public class SysStaffController {
             @RequestParam(name = "pageNo") long page,
             @RequestParam(name = "pageSize") long limit,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String sort) {
-        return staffService.listStaff(page, limit, name);
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) byte hasVenue) {
+        return staffService.listStaff(page, limit, name, hasVenue);
     }
 
     /**
