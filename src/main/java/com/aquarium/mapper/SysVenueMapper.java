@@ -29,5 +29,5 @@ public interface SysVenueMapper extends BaseMapper<SysVenue> {
      * @param venueId
      * @return
      */
-    Set<Integer> findManagedVenueInterIds(int venueId);
+    Set<Integer> findAdministratorInterIds(int venueId);
 }

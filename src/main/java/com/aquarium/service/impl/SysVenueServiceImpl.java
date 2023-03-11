@@ -1,7 +1,11 @@
 package com.aquarium.service.impl;
 
+import com.aquarium.dto.UpdateAdministratorDTO;
 import com.aquarium.mapper.SysStaffMapper;
+import com.aquarium.mapper.SysStaffVenueMapper;
 import com.aquarium.mapper.SysVenueMapper;
+import com.aquarium.pojo.SysStaff;
+import com.aquarium.pojo.SysStaffVenue;
 import com.aquarium.pojo.SysVenue;
 import com.aquarium.response.ResponseVo;
 import com.aquarium.service.ISysVenueService;
@@ -34,6 +38,9 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
     @Resource
     private SysStaffMapper staffMapper;
 
+    @Resource
+    private SysStaffVenueMapper staffVenueMapper;
+
     @Override
     public ResponseVo listVenue(long page, long limit, String name) {
         // 分页
@@ -57,6 +64,58 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
     public ResponseVo findAdministrator(int venueId) {
         Set<Integer> administratorIds = venueMapper.findAdministrator(venueId);
         return ResponseVo.success().data("items", administratorIds).data("total", administratorIds.size());
+    }
+
+    @Override
+    public ResponseVo updateAdministrator(UpdateAdministratorDTO newAdminDTO) {
+        // 查出旧关系id
+        Set<Integer> administratorInterIds = venueMapper.findAdministratorInterIds(newAdminDTO.getVenueId());
+        // 查找出准备删除部分关系的管理员id
+        Set<Integer> administratorIds = venueMapper.findAdministrator(newAdminDTO.getVenueId());
+        // 删除关系
+        if (administratorInterIds.size() > 0) {
+            if (staffVenueMapper.deleteBatchIds(administratorInterIds) < 0) {
+                return ResponseVo.exp();
+            }
+        }
+        SysVenue venue = new SysVenue();
+        // 设置场馆管理员状态
+        venue.setHasAdmin((byte) 0);
+        venue.setVenueId(newAdminDTO.getVenueId());
+        if (newAdminDTO.getStaffIdList().size() > 0) {
+            // 增加新的人员场馆关系
+            newAdminDTO.getStaffIdList().forEach(staffId -> {
+                SysStaffVenue sysStaffVenue = new SysStaffVenue();
+                sysStaffVenue.setVenueId(newAdminDTO.getVenueId());
+                sysStaffVenue.setStaffId(staffId);
+                staffVenueMapper.insert(sysStaffVenue);
+                log.info("insertVenue---{}", sysStaffVenue.getId());
+            });
+            // 设置场馆管理员状态
+            venue.setHasAdmin((byte) 1);
+        }
+        // 设置场馆管理员状态
+        if (venueMapper.updateById(venue) <= 0) {
+            return ResponseVo.exp();
+        }
+        // 设置变动过的管理员管理场馆状态
+        administratorIds.addAll(newAdminDTO.getStaffIdList());
+        SysStaff staff = new SysStaff();
+        // 循环设置管理状态
+        administratorIds.forEach(staffId -> {
+            staff.setStaffId(staffId);
+            LambdaQueryWrapper<SysStaffVenue> wrapper = Wrappers.lambdaQuery();
+            // 在关系表中是否存在该人员id，存在则设置管理状态为1
+            wrapper.eq(SysStaffVenue::getStaffId, staffId);
+            // 设置管理状态
+            staff.setHasVenue((byte) 0);
+            if (staffVenueMapper.exists(wrapper)) {
+                // 设置管理状态
+                staff.setHasVenue((byte) 1);
+            }
+            staffMapper.updateById(staff);
+        });
+        return ResponseVo.success();
     }
 
 }

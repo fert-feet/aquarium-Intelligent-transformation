@@ -1,5 +1,6 @@
 package com.aquarium.service;
 
+import com.aquarium.dto.UpdateAdministratorDTO;
 import com.aquarium.pojo.SysVenue;
 import com.aquarium.response.ResponseVo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -31,4 +32,12 @@ public interface ISysVenueService extends IService<SysVenue> {
      * @return
      */
     ResponseVo findAdministrator(int venueId);
+
+    /**
+     * 更新场馆管理员
+     *
+     * @param newAdminDTO
+     * @return
+     */
+    ResponseVo updateAdministrator(UpdateAdministratorDTO newAdminDTO);
 }

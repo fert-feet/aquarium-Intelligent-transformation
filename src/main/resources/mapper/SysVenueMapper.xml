@@ -7,7 +7,7 @@
         FROM sys_staff_venue
         WHERE venue_id = #{venueId}
     </select>
-    <select id="findManagedVenueInterIds" resultType="java.lang.Integer">
+    <select id="findAdministratorInterIds" resultType="java.lang.Integer">
         SELECT id
         FROM sys_staff_venue
         WHERE venue_id = #{venueId}

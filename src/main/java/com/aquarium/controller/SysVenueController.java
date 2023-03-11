@@ -1,5 +1,6 @@
 package com.aquarium.controller;
 
+import com.aquarium.dto.UpdateAdministratorDTO;
 import com.aquarium.pojo.SysVenue;
 import com.aquarium.response.ResponseVo;
 import com.aquarium.service.ISysVenueService;
@@ -91,6 +92,17 @@ public class SysVenueController {
     @GetMapping("/administrator")
     public ResponseVo findAdministrator(int venueId) {
         return venueService.findAdministrator(venueId);
+    }
+
+    /**
+     * 更新场馆管理员
+     *
+     * @param newAdminDTO
+     * @return
+     */
+    @PostMapping("/updateAdministrator")
+    public ResponseVo updateAdministrator(@RequestBody UpdateAdministratorDTO newAdminDTO) {
+        return venueService.updateAdministrator(newAdminDTO);
     }
 
 }
