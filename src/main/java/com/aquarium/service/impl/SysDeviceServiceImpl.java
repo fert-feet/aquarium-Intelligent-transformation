@@ -68,7 +68,6 @@ public class SysDeviceServiceImpl extends ServiceImpl<SysDeviceMapper, SysDevice
         if (device.getVenueId() != null) {
             SysVenue venue = new SysVenue();
             venue.setVenueId(device.getVenueId());
-            venue.setDeviceId(device.getDeviceId());
             // 同步设置实验室中设备ID
             if (venueMapper.updateById(venue) == 0) {
                 return ResponseVo.exp();

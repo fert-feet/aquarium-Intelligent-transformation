@@ -61,7 +61,10 @@ public class SysDeviceController {
      */
     @PostMapping("/addOrUpdate")
     public ResponseVo addOrUpdate(@RequestBody SysDevice device) {
-        return deviceService.addOrUpdate(device);
+        if (deviceService.saveOrUpdate(device)) {
+            return ResponseVo.success();
+        }
+        return ResponseVo.exp();
     }
 
     /**
