@@ -34,11 +34,12 @@ public class SysDeviceController {
      */
     @GetMapping("/list")
     public ResponseVo list(
-            long page,
-            long limit,
+            @RequestParam(name = "pageNo") long page,
+            @RequestParam(name = "pageSize") long limit,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String sort) {
-        return deviceService.listDevice(page, limit, name);
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) String venueName) {
+        return deviceService.listDevice(page, limit, name, venueName);
     }
 
     /**

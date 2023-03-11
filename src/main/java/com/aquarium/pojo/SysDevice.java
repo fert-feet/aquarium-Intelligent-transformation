@@ -38,4 +38,9 @@ public class SysDevice implements Serializable {
      * 所属场馆id
      */
     private Integer venueId;
+
+    /**
+     * 所属场馆名称
+     */
+    private String venueName;
 }

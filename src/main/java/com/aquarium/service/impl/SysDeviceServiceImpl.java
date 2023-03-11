@@ -32,7 +32,7 @@ public class SysDeviceServiceImpl extends ServiceImpl<SysDeviceMapper, SysDevice
     private SysVenueMapper venueMapper;
 
     @Override
-    public ResponseVo listDevice(long page, long limit, String name) {
+    public ResponseVo listDevice(long page, long limit, String name, String venueName) {
         // 分页
         Page<SysDevice> devicePage = new Page<>();
         // 当前页面
@@ -44,10 +44,17 @@ public class SysDeviceServiceImpl extends ServiceImpl<SysDeviceMapper, SysDevice
             // 根据设备名称查询
             wrapper.like(SysDevice::getName, name);
         }
+        if (!StringUtils.isEmpty(venueName)) {
+            // 根据设备所属场馆过滤
+            wrapper.like(SysDevice::getVenueName, venueName);
+        }
         // 顺序排列
         wrapper.orderByAsc(SysDevice::getVenueId);
         Page<SysDevice> selectPage = deviceMapper.selectPage(devicePage, wrapper);
-        return ResponseVo.success().data("items", selectPage.getRecords()).data("total", selectPage.getTotal());
+        return ResponseVo.success()
+                .data("items", selectPage.getRecords())
+                .data("totalCount", selectPage.getTotal())
+                .data("pageNo", page);
     }
 
     @Override
