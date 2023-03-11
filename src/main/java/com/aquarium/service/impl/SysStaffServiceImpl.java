@@ -125,4 +125,29 @@ public class SysStaffServiceImpl extends ServiceImpl<SysStaffMapper, SysStaff> i
         return ResponseVo.success();
     }
 
+    @Override
+    public ResponseVo delete(int staffId) {
+        // 执行删除前，查出管理的场馆id，然后查询并设置受影响场馆的管理状态
+        Set<Integer> managedVenue = staffMapper.findManagedVenue(staffId);
+        // 执行删除操作
+        if (staffMapper.deleteById(staffId) <= 0) {
+            return ResponseVo.exp();
+        }
+        SysVenue venue = new SysVenue();
+        managedVenue.forEach(venueId -> {
+            venue.setVenueId(venueId);
+            LambdaQueryWrapper<SysStaffVenue> wrapper = Wrappers.lambdaQuery();
+            // 在关系表中是否存在该场馆id，存在则设置管理状态为1
+            wrapper.eq(SysStaffVenue::getVenueId, venueId);
+            // 设置管理状态
+            venue.setHasAdmin((byte) 0);
+            if (staffVenueMapper.exists(wrapper)) {
+                // 设置管理状态
+                venue.setHasAdmin((byte) 1);
+            }
+            venueMapper.updateById(venue);
+        });
+        return ResponseVo.success();
+    }
+
 }

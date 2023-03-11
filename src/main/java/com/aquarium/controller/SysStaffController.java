@@ -46,10 +46,7 @@ public class SysStaffController {
      */
     @PostMapping("/delete")
     public ResponseVo deleteStaff(int staffId) {
-        if (staffService.removeById(staffId)) {
-            return ResponseVo.success();
-        }
-        return ResponseVo.exp();
+        return staffService.delete(staffId);
     }
 
     /**

@@ -42,4 +42,13 @@ public interface ISysStaffService extends IService<SysStaff> {
      * @return
      */
     ResponseVo updateManagedVenue(UpdateManagedVenueDTO newVenueDTO);
+
+    /**
+     * 人员删除
+     *
+     * @param staffId
+     * @return
+     */
+    ResponseVo delete(int staffId);
+
 }
