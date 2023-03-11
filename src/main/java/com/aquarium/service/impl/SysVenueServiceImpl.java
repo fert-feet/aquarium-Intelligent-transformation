@@ -42,7 +42,7 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
     private SysStaffVenueMapper staffVenueMapper;
 
     @Override
-    public ResponseVo listVenue(long page, long limit, String name) {
+    public ResponseVo listVenue(long page, long limit, String name, byte hasAdmin) {
         // 分页
         Page<SysVenue> venuePage = new Page<>();
         // 当前页面
@@ -54,10 +54,17 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
             // 根据场馆名称查询
             wrapper.like(SysVenue::getName, name);
         }
+        if (hasAdmin == 0 || hasAdmin == 1) {
+            // 根据场所有无管理员过滤
+            wrapper.eq(SysVenue::getHasAdmin, hasAdmin);
+        }
         // 顺序排列
         wrapper.orderByAsc(SysVenue::getVenueId);
         Page<SysVenue> selectPage = venueMapper.selectPage(venuePage, wrapper);
-        return ResponseVo.success().data("items", selectPage.getRecords()).data("total", selectPage.getTotal());
+        return ResponseVo.success()
+                .data("items", selectPage.getRecords())
+                .data("totalCount", selectPage.getTotal())
+                .data("pageNo", page);
     }
 
     @Override
@@ -100,6 +107,32 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
         }
         // 设置变动过的管理员管理场馆状态
         administratorIds.addAll(newAdminDTO.getStaffIdList());
+        SysStaff staff = new SysStaff();
+        // 循环设置管理状态
+        administratorIds.forEach(staffId -> {
+            staff.setStaffId(staffId);
+            LambdaQueryWrapper<SysStaffVenue> wrapper = Wrappers.lambdaQuery();
+            // 在关系表中是否存在该人员id，存在则设置管理状态为1
+            wrapper.eq(SysStaffVenue::getStaffId, staffId);
+            // 设置管理状态
+            staff.setHasVenue((byte) 0);
+            if (staffVenueMapper.exists(wrapper)) {
+                // 设置管理状态
+                staff.setHasVenue((byte) 1);
+            }
+            staffMapper.updateById(staff);
+        });
+        return ResponseVo.success();
+    }
+
+    @Override
+    public ResponseVo delete(int venueId) {
+        // 执行删除前，查出管理的场馆id，然后查询并设置受影响场馆的管理状态
+        Set<Integer> administratorIds = venueMapper.findAdministrator(venueId);
+        // 执行删除操作
+        if (venueMapper.deleteById(venueId) <= 0) {
+            return ResponseVo.exp();
+        }
         SysStaff staff = new SysStaff();
         // 循环设置管理状态
         administratorIds.forEach(staffId -> {

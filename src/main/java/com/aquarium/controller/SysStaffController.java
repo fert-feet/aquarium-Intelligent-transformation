@@ -30,8 +30,8 @@ public class SysStaffController {
      * @param sysStaff
      * @return
      */
-    @PostMapping("/addOrCreate")
-    public ResponseVo addOrCreate(@RequestBody SysStaff sysStaff) {
+    @PostMapping("/addOrUpdate")
+    public ResponseVo addOrUpdate(@RequestBody SysStaff sysStaff) {
         if (staffService.saveOrUpdate(sysStaff)) {
             return ResponseVo.success();
         }

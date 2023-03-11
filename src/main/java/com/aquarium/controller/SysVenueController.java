@@ -28,11 +28,12 @@ public class SysVenueController {
      */
     @GetMapping("/list")
     public ResponseVo list(
-            long page,
-            long limit,
+            @RequestParam(name = "pageNo") long page,
+            @RequestParam(name = "pageSize") long limit,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String sort) {
-        return venueService.listVenue(page, limit, name);
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) byte hasAdmin) {
+        return venueService.listVenue(page, limit, name, hasAdmin);
     }
 
     /**
@@ -47,39 +48,27 @@ public class SysVenueController {
     }
 
     /**
-     * 场馆删除
+     * 删除
      *
      * @param venueId
      * @return
      */
     @PostMapping("/delete")
-    public ResponseVo delete(int venueId) {
-        if (venueService.removeById(venueId)) {
+    public ResponseVo deleteStaff(int venueId) {
+        return venueService.delete(venueId);
+    }
+
+    /**
+     * 更新或新增场馆
+     *
+     * @param venue
+     * @return
+     */
+    @PostMapping("/addOrUpdate")
+    public ResponseVo addOrUpdate(@RequestBody SysVenue venue) {
+        if (venueService.saveOrUpdate(venue)) {
             return ResponseVo.success();
         }
-        return ResponseVo.exp();
-    }
-
-
-    /**
-     * 新增场馆
-     *
-     * @param venue
-     * @return
-     */
-    @PostMapping("/add")
-    public ResponseVo add(@RequestBody SysVenue venue) {
-        return ResponseVo.exp();
-    }
-
-    /**
-     * 更新场馆信息
-     *
-     * @param venue
-     * @return
-     */
-    @PostMapping("/update")
-    public ResponseVo update(@RequestBody SysVenue venue) {
         return ResponseVo.exp();
     }
 

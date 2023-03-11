@@ -21,9 +21,10 @@ public interface ISysVenueService extends IService<SysVenue> {
      * @param page
      * @param limit
      * @param name
+     * @param hasAdmin
      * @return
      */
-    ResponseVo listVenue(long page, long limit, String name);
+    ResponseVo listVenue(long page, long limit, String name, byte hasAdmin);
 
     /**
      * 查找实验室管理员
@@ -40,4 +41,12 @@ public interface ISysVenueService extends IService<SysVenue> {
      * @return
      */
     ResponseVo updateAdministrator(UpdateAdministratorDTO newAdminDTO);
+
+    /**
+     * 删除
+     *
+     * @param venueId
+     * @return
+     */
+    ResponseVo delete(int venueId);
 }
