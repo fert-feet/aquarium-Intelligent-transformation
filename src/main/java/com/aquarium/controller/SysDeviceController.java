@@ -38,8 +38,8 @@ public class SysDeviceController {
             @RequestParam(name = "pageSize") long limit,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String sort,
-            @RequestParam(required = false) String venueName) {
-        return deviceService.listDevice(page, limit, name, venueName);
+            @RequestParam(required = false) int venueId) {
+        return deviceService.listDevice(page, limit, name, venueId);
     }
 
     /**

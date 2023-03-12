@@ -23,7 +23,7 @@ public interface ISysDeviceService extends IService<SysDevice> {
      * @param venueName
      * @return
      */
-    ResponseVo listDevice(long page, long limit, String name, String venueName);
+    ResponseVo listDevice(long page, long limit, String name, int venueId);
 
     /**
      * 更新设备所属场馆
