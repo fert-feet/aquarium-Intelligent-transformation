@@ -58,25 +58,37 @@ public class SysDeviceServiceImpl extends ServiceImpl<SysDeviceMapper, SysDevice
     }
 
     @Override
-    public ResponseVo addOrUpdate(SysDevice device) {
-        // 新增操作
-        if (device.getDeviceId() == null) {
-            deviceMapper.insert(device);
-            return ResponseVo.success();
-        }
-        // 设置绑定实验室操作
-        if (device.getVenueId() != null) {
-            SysVenue venue = new SysVenue();
-            venue.setVenueId(device.getVenueId());
-            // 同步设置实验室中设备ID
-            if (venueMapper.updateById(venue) == 0) {
+    public ResponseVo updateBelongsVenue(SysDevice device) {
+        // 设定新绑定场馆绑定状态
+        if (device.getVenueId() != 0) {
+            // 查出新绑定场馆信息
+            SysVenue newVenue = venueMapper.selectById(device.getVenueId());
+            newVenue.setHasDevice((byte) 1);
+            // 更新当前绑定场馆绑定状态
+            if (venueMapper.updateById(newVenue) <= 0) {
                 return ResponseVo.exp();
             }
+            // 设置设备所属场馆名称
+            device.setVenueName(newVenue.getName());
         }
-        // 更新设备信息
-        if (deviceMapper.updateById(device) > 0) {
-            return ResponseVo.success();
+        // 更新前找到原绑定的场馆
+        SysVenue belongsVenue = deviceMapper.findBelongsVenue(device.getDeviceId());
+        // 执行更新
+        if (deviceMapper.updateById(device) <= 0) {
+            return ResponseVo.exp();
         }
-        return ResponseVo.exp();
+        // 设置原绑定的场馆绑定状态
+        if (belongsVenue != null) {
+            LambdaQueryWrapper<SysDevice> wrapper = Wrappers.lambdaQuery();
+            wrapper.eq(SysDevice::getVenueId, belongsVenue.getVenueId());
+            if (!deviceMapper.exists(wrapper)) {
+                belongsVenue.setHasDevice((byte) 0);
+                // 更新原绑定场馆绑定状态
+                if (venueMapper.updateById(belongsVenue) <= 0) {
+                    return ResponseVo.exp();
+                }
+            }
+        }
+        return ResponseVo.success();
     }
 }

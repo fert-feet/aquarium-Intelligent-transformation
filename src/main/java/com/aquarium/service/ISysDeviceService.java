@@ -26,10 +26,10 @@ public interface ISysDeviceService extends IService<SysDevice> {
     ResponseVo listDevice(long page, long limit, String name, String venueName);
 
     /**
-     * 更新或新增设备
+     * 更新设备所属场馆
      *
      * @param device
      * @return
      */
-    ResponseVo addOrUpdate(SysDevice device);
+    ResponseVo updateBelongsVenue(SysDevice device);
 }

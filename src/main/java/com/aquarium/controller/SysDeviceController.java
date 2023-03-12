@@ -79,4 +79,15 @@ public class SysDeviceController {
         }
         return ResponseVo.exp();
     }
+
+    /**
+     * 更新设备所属场馆
+     *
+     * @param device
+     * @return
+     */
+    @PostMapping("/updateBelongsVenue")
+    public ResponseVo updateBelongsVenue(@RequestBody SysDevice device) {
+        return deviceService.updateBelongsVenue(device);
+    }
 }

@@ -1,8 +1,6 @@
 package com.aquarium.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,5 +40,6 @@ public class SysDevice implements Serializable {
     /**
      * 所属场馆名称
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String venueName;
 }
