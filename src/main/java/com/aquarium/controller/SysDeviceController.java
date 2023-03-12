@@ -74,10 +74,7 @@ public class SysDeviceController {
      */
     @PostMapping("/delete")
     public ResponseVo delete(int deviceId) {
-        if (deviceService.removeById(deviceId)) {
-            return ResponseVo.success();
-        }
-        return ResponseVo.exp();
+        return deviceService.delete(deviceId);
     }
 
     /**

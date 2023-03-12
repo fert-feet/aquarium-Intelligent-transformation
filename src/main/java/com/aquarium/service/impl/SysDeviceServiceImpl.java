@@ -83,10 +83,34 @@ public class SysDeviceServiceImpl extends ServiceImpl<SysDeviceMapper, SysDevice
             wrapper.eq(SysDevice::getVenueId, belongsVenue.getVenueId());
             if (!deviceMapper.exists(wrapper)) {
                 belongsVenue.setHasDevice((byte) 0);
-                // 更新原绑定场馆绑定状态
-                if (venueMapper.updateById(belongsVenue) <= 0) {
-                    return ResponseVo.exp();
-                }
+            }
+            // 更新原绑定场馆绑定状态
+            if (venueMapper.updateById(belongsVenue) <= 0) {
+                return ResponseVo.exp();
+            }
+        }
+        return ResponseVo.success();
+    }
+
+    @Override
+    public ResponseVo delete(int deviceId) {
+        // 执行删除前，查出绑定场馆信息
+        SysVenue belongsVenue = deviceMapper.findBelongsVenue(deviceId);
+        // 执行删除
+        if (deviceMapper.deleteById(deviceId) <= 0) {
+            return ResponseVo.exp();
+        }
+        // 更新场馆设备绑定状态
+        if (belongsVenue != null) {
+            // 查询在设备表中是否还存在场馆
+            LambdaQueryWrapper<SysDevice> wrapper = Wrappers.lambdaQuery();
+            wrapper.eq(SysDevice::getVenueId, belongsVenue.getVenueId());
+            if (!deviceMapper.exists(wrapper)) {
+                belongsVenue.setHasDevice((byte) 0);
+            }
+            // 更新场馆表
+            if (venueMapper.updateById(belongsVenue) <= 0) {
+                return ResponseVo.exp();
             }
         }
         return ResponseVo.success();

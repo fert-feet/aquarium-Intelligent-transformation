@@ -32,4 +32,12 @@ public interface ISysDeviceService extends IService<SysDevice> {
      * @return
      */
     ResponseVo updateBelongsVenue(SysDevice device);
+
+    /**
+     * 删除
+     *
+     * @param deviceId
+     * @return
+     */
+    ResponseVo delete(int deviceId);
 }
