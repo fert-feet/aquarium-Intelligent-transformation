@@ -49,7 +49,7 @@ public class SysDeviceServiceImpl extends ServiceImpl<SysDeviceMapper, SysDevice
             wrapper.like(SysDevice::getVenueId, venueId);
         }
         // 顺序排列
-        wrapper.orderByAsc(SysDevice::getVenueId);
+        wrapper.orderByAsc(SysDevice::getDeviceId);
         Page<SysDevice> selectPage = deviceMapper.selectPage(devicePage, wrapper);
         return ResponseVo.success()
                 .data("items", selectPage.getRecords())

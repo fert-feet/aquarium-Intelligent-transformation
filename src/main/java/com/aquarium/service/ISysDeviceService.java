@@ -20,7 +20,7 @@ public interface ISysDeviceService extends IService<SysDevice> {
      * @param page
      * @param limit
      * @param name
-     * @param venueName
+     * @param venueId
      * @return
      */
     ResponseVo listDevice(long page, long limit, String name, int venueId);
