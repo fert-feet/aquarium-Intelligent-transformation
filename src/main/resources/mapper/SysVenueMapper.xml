@@ -12,4 +12,11 @@
         FROM sys_staff_venue
         WHERE venue_id = #{venueId}
     </select>
+    <select id="findBindDevicesByVenueId" resultType="com.aquarium.pojo.SysDevice">
+        SELECT *
+        FROM sys_device
+        WHERE venue_id IN (SELECT venue_id
+                           FROM sys_venue
+                           WHERE venue_id = #{venueId})
+    </select>
 </mapper>

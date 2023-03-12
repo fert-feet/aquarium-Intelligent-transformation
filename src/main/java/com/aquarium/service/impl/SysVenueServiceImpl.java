@@ -1,9 +1,11 @@
 package com.aquarium.service.impl;
 
 import com.aquarium.dto.UpdateAdministratorDTO;
+import com.aquarium.mapper.SysDeviceMapper;
 import com.aquarium.mapper.SysStaffMapper;
 import com.aquarium.mapper.SysStaffVenueMapper;
 import com.aquarium.mapper.SysVenueMapper;
+import com.aquarium.pojo.SysDevice;
 import com.aquarium.pojo.SysStaff;
 import com.aquarium.pojo.SysStaffVenue;
 import com.aquarium.pojo.SysVenue;
@@ -34,6 +36,9 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
 
     @Resource
     private SysVenueMapper venueMapper;
+
+    @Resource
+    private SysDeviceMapper deviceMapper;
 
     @Resource
     private SysStaffMapper staffMapper;
@@ -127,14 +132,16 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
 
     @Override
     public ResponseVo delete(int venueId) {
-        // 执行删除前，查出管理的场馆id，然后查询并设置受影响场馆的管理状态
+        // 执行删除前，查出管理员id，并设置受影响人员的绑定状态
         Set<Integer> administratorIds = venueMapper.findAdministrator(venueId);
+        // 执行删除前，查出受影响的设备
+        Set<SysDevice> bindDevices = venueMapper.findBindDevicesByVenueId(venueId);
         // 执行删除操作
         if (venueMapper.deleteById(venueId) <= 0) {
             return ResponseVo.exp();
         }
         SysStaff staff = new SysStaff();
-        // 循环设置管理状态
+        // 循环设置人员管理状态
         administratorIds.forEach(staffId -> {
             staff.setStaffId(staffId);
             LambdaQueryWrapper<SysStaffVenue> wrapper = Wrappers.lambdaQuery();
@@ -147,6 +154,12 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
                 staff.setHasVenue((byte) 1);
             }
             staffMapper.updateById(staff);
+        });
+        // 循环设置设备所属场馆状态
+        bindDevices.forEach(device -> {
+            device.setVenueId(0);
+            device.setVenueName(null);
+            deviceMapper.updateById(device);
         });
         return ResponseVo.success();
     }

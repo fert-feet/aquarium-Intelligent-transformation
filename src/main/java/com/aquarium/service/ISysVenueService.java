@@ -27,7 +27,7 @@ public interface ISysVenueService extends IService<SysVenue> {
     ResponseVo listVenue(long page, long limit, String name, byte hasAdmin);
 
     /**
-     * 查找实验室管理员
+     * 查找场馆管理员
      *
      * @param venueId
      * @return

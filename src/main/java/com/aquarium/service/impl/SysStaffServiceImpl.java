@@ -55,7 +55,7 @@ public class SysStaffServiceImpl extends ServiceImpl<SysStaffMapper, SysStaff> i
             wrapper.like(SysStaff::getName, name);
         }
         if (hasVenue == 1 || hasVenue == 0) {
-            // 根据是否已有管理的实验室过滤
+            // 根据是否已有管理的场馆过滤
             wrapper.eq(SysStaff::getHasVenue, hasVenue);
         }
         // 顺序排列

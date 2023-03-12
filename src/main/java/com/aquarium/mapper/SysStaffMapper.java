@@ -16,7 +16,7 @@ import java.util.Set;
 public interface SysStaffMapper extends BaseMapper<SysStaff> {
 
     /**
-     * 查找管理的实验室
+     * 查找管理的场馆
      *
      * @param staffId
      * @return
@@ -24,7 +24,7 @@ public interface SysStaffMapper extends BaseMapper<SysStaff> {
     Set<Integer> findManagedVenue(int staffId);
 
     /**
-     * 查找管理的实验室关系id
+     * 查找管理的场馆关系id
      *
      * @param staffId
      * @return

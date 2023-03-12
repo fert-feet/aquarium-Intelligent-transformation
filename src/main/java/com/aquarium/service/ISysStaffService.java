@@ -28,7 +28,7 @@ public interface ISysStaffService extends IService<SysStaff> {
 
 
     /**
-     * 查找人员管理的实验室
+     * 查找人员管理的场馆
      *
      * @param staffId
      * @return

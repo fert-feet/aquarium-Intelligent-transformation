@@ -41,7 +41,7 @@ public class SysWaterQuality implements Serializable {
     private LocalDate dataDate;
 
     /**
-     * 水质状况归属的实验室
+     * 水质状况归属的场馆
      */
     private Integer venueId;
 }

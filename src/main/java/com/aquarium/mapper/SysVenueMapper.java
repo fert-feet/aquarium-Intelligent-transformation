@@ -1,5 +1,6 @@
 package com.aquarium.mapper;
 
+import com.aquarium.pojo.SysDevice;
 import com.aquarium.pojo.SysVenue;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -16,7 +17,7 @@ import java.util.Set;
 public interface SysVenueMapper extends BaseMapper<SysVenue> {
 
     /**
-     * 查找实验室的管理员
+     * 查找场馆的管理员
      *
      * @param venueId
      * @return
@@ -30,4 +31,12 @@ public interface SysVenueMapper extends BaseMapper<SysVenue> {
      * @return
      */
     Set<Integer> findAdministratorInterIds(int venueId);
+
+    /**
+     * 查找场馆绑定的设备
+     *
+     * @param venueId
+     * @return
+     */
+    Set<SysDevice> findBindDevicesByVenueId(int venueId);
 }

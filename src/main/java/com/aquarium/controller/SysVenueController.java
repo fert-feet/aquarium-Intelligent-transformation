@@ -73,7 +73,7 @@ public class SysVenueController {
     }
 
     /**
-     * 查找实验室的管理员
+     * 查找场馆的管理员
      *
      * @param venueId
      * @return
