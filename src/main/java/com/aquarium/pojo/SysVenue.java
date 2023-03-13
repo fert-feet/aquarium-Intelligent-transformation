@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author tt-Tang
- * @since 2023-03-04
+ * @since 2023-03-13
  */
 @Getter
 @Setter
@@ -35,17 +35,51 @@ public class SysVenue implements Serializable {
     private String name;
 
     /**
+     * 水温最大阈值
+     */
+    private Double maxWaterTemperature;
+
+    /**
+     * 水温最小阈值
+     */
+    private Double minWaterTemperature;
+
+    /**
+     * 有效磷最大阈值
+     */
+    private Double maxWaterAvailablePhosphorous;
+
+    /**
+     * 有效磷最小阈值
+     */
+    private Double minWaterAvailablePhosphorous;
+
+    /**
      * 场馆水质最大阈值
      */
-    private Integer maxWaterThreshold;
+    private Double maxWaterSalt;
+
+    /**
+     * 水体盐分最大阈值
+     */
+    private Double minWaterSalt;
+
+    /**
+     * 水体盐分最大阈值
+     */
+    private Double maxWaterPh;
 
     /**
      * 场馆水质最小阈值
      */
+    private Double minWaterPh;
+
+    private Integer maxWaterThreshold;
+
     private Integer miniWaterThreshold;
 
     /**
-     * 是否有管理人员
+     * 是否有管理员
      */
     private Byte hasAdmin;
 

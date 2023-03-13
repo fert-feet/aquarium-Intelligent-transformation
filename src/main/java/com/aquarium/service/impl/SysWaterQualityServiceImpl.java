@@ -39,8 +39,10 @@ public class SysWaterQualityServiceImpl extends ServiceImpl<SysWaterQualityMappe
         if (date != null) {
             wrapper.eq(SysWaterQuality::getDataDate, DateUtil.parse(date));
         }
-        // 根据场馆ID查询场馆的水质数据
-        wrapper.eq(SysWaterQuality::getVenueId, venueId);
+        if (venueId != 0) {
+            // 根据场馆ID查询场馆的水质数据
+            wrapper.eq(SysWaterQuality::getVenueId, venueId);
+        }
         // 根据日期顺序排列
         wrapper.orderByAsc(SysWaterQuality::getDataDate);
         Page<SysWaterQuality> selectPage = waterQualityMapper.selectPage(waterQualityPage, wrapper);

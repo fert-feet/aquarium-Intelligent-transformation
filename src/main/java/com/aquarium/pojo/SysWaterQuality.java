@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -15,7 +15,7 @@ import java.time.LocalDate;
  * </p>
  *
  * @author tt-Tang
- * @since 2023-03-04
+ * @since 2023-03-13
  */
 @Getter
 @Setter
@@ -31,17 +31,37 @@ public class SysWaterQuality implements Serializable {
     private Integer waterQualityId;
 
     /**
-     * 水质数值
+     * 有效磷：0.2-1mg/L
      */
-    private Integer waterQualityNum;
+    private Double waterAvailablePhosphorous;
+
+    /**
+     * 水体盐度：0-1%
+     */
+    private Double waterSalt;
+
+    /**
+     * ph值：6.5-8.5
+     */
+    private Double waterPh;
+
+    /**
+     * 水温：18-35℃
+     */
+    private Double waterTemperature;
 
     /**
      * 水质记录日期
      */
-    private LocalDate dataDate;
+    private LocalDateTime dataDate;
 
     /**
-     * 水质状况归属的场馆
+     * 水质状况归属的实验室
      */
     private Integer venueId;
+
+    /**
+     * 是否报警
+     */
+    private Byte warnStatus;
 }

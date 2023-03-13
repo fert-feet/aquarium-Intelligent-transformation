@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-03-04
  */
 @RestController
-@RequestMapping("/waterData")
+@RequestMapping("/water")
 public class SysWaterQualityController {
     @Resource
     private ISysWaterQualityService waterQualityService;
@@ -33,11 +33,11 @@ public class SysWaterQualityController {
      */
     @GetMapping("/list")
     public ResponseVo list(
-            int venueId,
-            long page,
-            long limit,
+            @RequestParam(name = "pageNo") long page,
+            @RequestParam(name = "pageSize") long limit,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String sort,
+            @RequestParam(required = false) int venueId,
             @RequestParam(required = false) String date) {
         return waterQualityService.listWaterData(page, limit, name, venueId, date);
     }
