@@ -19,4 +19,8 @@
                            FROM sys_venue
                            WHERE venue_id = #{venueId})
     </select>
+    <select id="findVenueList" resultType="com.aquarium.pojo.SysVenue">
+        SELECT *
+        FROM sys_venue
+    </select>
 </mapper>

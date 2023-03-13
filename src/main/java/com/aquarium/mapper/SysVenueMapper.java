@@ -4,6 +4,7 @@ import com.aquarium.pojo.SysDevice;
 import com.aquarium.pojo.SysVenue;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -39,4 +40,11 @@ public interface SysVenueMapper extends BaseMapper<SysVenue> {
      * @return
      */
     Set<SysDevice> findBindDevicesByVenueId(int venueId);
+
+    /**
+     * 查询场馆列表
+     *
+     * @return
+     */
+    List<SysVenue> findVenueList();
 }

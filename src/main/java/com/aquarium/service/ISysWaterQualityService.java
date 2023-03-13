@@ -25,4 +25,11 @@ public interface ISysWaterQualityService extends IService<SysWaterQuality> {
      * @return
      */
     ResponseVo listWaterData(long page, long limit, String name, int venueId, String date);
+
+    /**
+     * 生成数据
+     *
+     * @return
+     */
+    ResponseVo createOne();
 }

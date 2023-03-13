@@ -41,4 +41,14 @@ public class SysWaterQualityController {
             @RequestParam(required = false) String date) {
         return waterQualityService.listWaterData(page, limit, name, venueId, date);
     }
+
+    /**
+     * 生成数据
+     *
+     * @return
+     */
+    @GetMapping("/add")
+    public ResponseVo insertData() {
+        return waterQualityService.createOne();
+    }
 }
