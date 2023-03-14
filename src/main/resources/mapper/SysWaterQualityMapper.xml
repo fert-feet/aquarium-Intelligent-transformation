@@ -2,4 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aquarium.mapper.SysWaterQualityMapper">
 
+    <select id="findDataIdsByVenueId" resultType="java.lang.Integer">
+        SELECT water_quality_id
+        FROM sys_water_quality
+        WHERE venue_id = #{venueId}
+    </select>
 </mapper>

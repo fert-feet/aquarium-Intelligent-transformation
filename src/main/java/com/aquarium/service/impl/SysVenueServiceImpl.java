@@ -1,10 +1,7 @@
 package com.aquarium.service.impl;
 
 import com.aquarium.dto.UpdateAdministratorDTO;
-import com.aquarium.mapper.SysDeviceMapper;
-import com.aquarium.mapper.SysStaffMapper;
-import com.aquarium.mapper.SysStaffVenueMapper;
-import com.aquarium.mapper.SysVenueMapper;
+import com.aquarium.mapper.*;
 import com.aquarium.pojo.SysDevice;
 import com.aquarium.pojo.SysStaff;
 import com.aquarium.pojo.SysStaffVenue;
@@ -20,6 +17,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -45,6 +43,9 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
 
     @Resource
     private SysStaffVenueMapper staffVenueMapper;
+
+    @Resource
+    private SysWaterQualityMapper waterQualityMapper;
 
     @Override
     public ResponseVo listVenue(long page, long limit, String name, byte hasAdmin) {
@@ -161,7 +162,29 @@ public class SysVenueServiceImpl extends ServiceImpl<SysVenueMapper, SysVenue> i
             device.setVenueName(null);
             deviceMapper.updateById(device);
         });
+        // 删除对应场馆数据
+        if (!deleteDataBindVenue(venueId)) {
+            return ResponseVo.exp();
+        }
         return ResponseVo.success();
+    }
+
+    /**
+     * 删除对应场馆数据
+     *
+     * @param venueId
+     * @return
+     */
+    private boolean deleteDataBindVenue(int venueId) {
+        // 查出数据ID列表
+        List<Integer> waterDataIdsBindVenue = waterQualityMapper.findDataIdsByVenueId(venueId);
+        //执行删除
+        if (waterDataIdsBindVenue.size() != 0) {
+            if (waterQualityMapper.deleteBatchIds(waterDataIdsBindVenue) <= 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
