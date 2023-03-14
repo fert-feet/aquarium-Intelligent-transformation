@@ -74,10 +74,6 @@ public class SysVenue implements Serializable {
      */
     private Double minWaterPh;
 
-    private Integer maxWaterThreshold;
-
-    private Integer miniWaterThreshold;
-
     /**
      * 是否有管理员
      */

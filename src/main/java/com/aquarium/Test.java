@@ -1,7 +1,10 @@
 package com.aquarium;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.NumberUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -14,8 +17,10 @@ import java.time.format.DateTimeFormatter;
 public class Test {
     public static void main(String[] args) {
         String format = LocalDateTime.now().format(
-                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         );
-        log.info("now---{}", format);
+        double one = 32.99606820864092;
+        log.info("one---{}", NumberUtil.round(one, 1, RoundingMode.FLOOR));
+        log.info("date---{}", DateUtil.parse(format, "yyyy-MM-dd HH:mm:ss"));
     }
 }
